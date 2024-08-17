@@ -35,7 +35,7 @@ const Upload = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "x-api-key": process.env.API_KEY,
+            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
           },
         }
       );
