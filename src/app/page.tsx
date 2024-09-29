@@ -9,6 +9,7 @@ const Upload = () => {
   const [uploading, setUploading] = useState(false);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [apiKey, setApiKey] = useState<string>(process.env.NEXT_PUBLIC_API_KEY || "");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -35,7 +36,7 @@ const Upload = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+            "x-api-key": apiKey,  // Use the API key from the input field
           },
         }
       );
@@ -64,6 +65,16 @@ const Upload = () => {
   return (
     <div style={{ padding: "20px", maxWidth: "500px", margin: "0 auto" }}>
       <h1>Upload File</h1>
+
+      {/* Input for API Key */}
+      <input 
+        type="text" 
+        value={apiKey} 
+        onChange={(e) => setApiKey(e.target.value)} 
+        placeholder="Enter your API Key"
+        style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
+      />
+      
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleUpload} disabled={uploading}>
         {uploading ? "Uploading..." : "Upload"}
