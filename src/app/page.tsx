@@ -49,6 +49,18 @@ const Upload = () => {
     }
   };
 
+  const handleCopyLink = () => {
+    if (fileUrl) {
+      navigator.clipboard.writeText(fileUrl)
+        .then(() => {
+          alert("Link copied to clipboard!");
+        })
+        .catch(err => {
+          alert("Failed to copy the link: " + err);
+        });
+    }
+  };
+
   return (
     <div style={{ padding: "20px", maxWidth: "500px", margin: "0 auto" }}>
       <h1>Upload File</h1>
@@ -67,6 +79,17 @@ const Upload = () => {
             width={100} height={100}
             style={{ maxWidth: "100%", height: "auto", marginTop: "10px" }}
           />
+          <div>
+            <input
+              type="text"
+              value={fileUrl}
+              readOnly
+              style={{ width: "100%", marginTop: "10px", padding: "8px" }}
+            />
+            <button onClick={handleCopyLink} style={{ marginTop: "10px" }}>
+              Copy Image Link
+            </button>
+          </div>
         </div>
       )}
     </div>
